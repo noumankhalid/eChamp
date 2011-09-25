@@ -13,7 +13,7 @@ gem 'parseexcel'
 gem 'omniauth', '0.1.6'
 gem 'jquery-rails'
 
-gem 'gbarcode'
+#gem 'gbarcode'
 #gem 'pg'
 gem "rake", "0.8.7"
 gem "heroku", "~> 2.4.0"
