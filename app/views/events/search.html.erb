@@ -9,11 +9,9 @@
 </div>
 
 <h1>Listing events</h1>
-<div id="page_list" style="float:left;" class="full_width">
-<%#= render :partial => "list" %>
+<div id="page_list">
+  <%= render :partial => "list" %>
 </div>
-
-
 <br />
 <% if is_admin? || (is_promoter? && current_user.id == event.user_id) %>
   <%= link_to 'New Event', new_event_path %>
@@ -30,5 +28,4 @@
       }
     });
   }
-  getPages("all");
 </script>

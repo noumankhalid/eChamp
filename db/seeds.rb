@@ -13,4 +13,4 @@
 end
 Role.new(:name => "Admin").save
 Role.new(:name => "Customer").save
-Role.new(:name => "Event Promoter").save
+Role.new(:name => "EventPromoter").save

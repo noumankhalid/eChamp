@@ -1,0 +1,13 @@
+
+div#page {
+	width:838px;
+    margin:0 auto;
+
+}
+div#container {
+	padding: 0px;
+}
+div#ads {
+	clear: both;
+	padding: 12px 0 12px 66px;
+}

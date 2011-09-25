@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  cost: 1
+  type: MyString
+  attendee: MyString
+  barcode: MyText
+  design: MyString
+
+two:
+  cost: 1
+  type: MyString
+  attendee: MyString
+  barcode: MyText
+  design: MyString

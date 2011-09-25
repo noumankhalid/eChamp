@@ -1,11 +1,19 @@
 EChamp::Application.routes.draw do
 
-  resources :events
+  resources :tickets
+
+  resources :events do
+    collection do
+      get 'fetch_pages'
+    end
+  end
   resources :profiles
   resources :home
    
   match 'profile' => "profiles#show"
   match 'events' => "events#index"
+  match "get_ticket/:id" => "events#ticket"
+  match "search" => "events#search"
 
   match '/auth/:service/callback' => 'services#create'
   devise_for :users

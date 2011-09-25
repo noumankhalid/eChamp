@@ -1,0 +1,92 @@
+<script type="text/javascript">
+  var pagination_options = {
+    callback: pageselectCallback,
+    items_per_page:1,
+    paginatorPosition: 'both'
+  }
+  function pageselectCallback(page_index, jq) {
+    var items_per_page = pagination_options.items_per_page;
+    var offset = page_index * items_per_page;
+    var new_content = $('#hiddenresult div.result').slice(offset, offset + items_per_page).clone();
+    $('#Searchresult').empty().append(new_content);
+    return false;
+  }
+
+  // When document is ready, initialize pagination and buttons
+  $(document).ready(function() {
+    var num_entries = $('#hiddenresult div.result').length;
+    // Create pagination element, if more than 50 candidates
+    if (num_entries == 1) {
+      var $pager = $("#Pagination");
+      $pager.fadeIn(400);
+      $pager.pagination(num_entries, pagination_options);
+    }
+    else {
+      $("#hiddenresult").fadeIn(200);
+    }
+  });
+</script>
+<div id="Pagination" style="left: 50%;margin-left: -275px;position: absolute; display: none;"></div>
+<br style="clear:both;"/>
+<% unless @events.blank? %>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Number of events</th>
+      <th>Start date</th>
+      <th>End date</th>
+      <th>Restrictions</th>
+      <th>Location</th>
+      <th>Address</th>
+      <th>Web address</th>
+      <th>Number of tickets</th>
+      <th>Ticket type</th>
+      <th>Max order tickets</th>
+      <th>Keywords</th>
+      <th>Discount code</th>
+      <th>Qr code</th>
+      <th>Group event</th>
+      <th>Video link</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+    <div id="Searchresult"></div>
+    <div class="upper_content">
+      <div id="hiddenresult" style="display:none;">
+        <div id="hiddenresult" style="display:none;">
+
+          <% @events.each do |event| %>
+            <tr>
+              <td><%= event.name %></td>
+              <td><%= raw(event.description) %></td>
+              <td><%= event.number_of_events %></td>
+              <td><%= event.start_date %></td>
+              <td><%= event.end_date %></td>
+              <td><%= raw(event.restrictions) %></td>
+              <td><%= event.location %></td>
+              <td><%= event.address %></td>
+              <td><%= event.web_address %></td>
+              <td><%= event.number_of_tickets %></td>
+              <td><%= event.ticket_type %></td>
+              <td><%= event.max_order_tickets %></td>
+              <td><%= raw(event.keywords) %></td>
+              <td><%= event.discount_code %></td>
+              <td><%= event.qr_code %></td>
+              <td><%= event.group_event %></td>
+              <td><%= event.video_link %></td>
+              <td><%= link_to 'Show', event %></td>
+              <% if is_admin? || (is_promoter? && current_user.id == event.user_id) || current_user.id == event.user_id %>
+                <td><%= link_to 'Edit', edit_event_path(event) %></td>
+                <td><%= link_to 'Destroy', event, confirm: 'Are you sure?', method: :delete %></td>
+              <% end %>
+            </tr>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </table>
+<% else %>
+  <h2>No Events found!</h2>
+<% end %>

@@ -2,8 +2,11 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
 
+  helper :all  
+  before_filter :authenticate_user!, :except => ["index","show","fetch_pages","get_ticket","ticket","search"]
   before_filter :check_profile
-
+  before_filter :check_permissions, :only => [:edit,:new, :create,:destroy]
+  
   def check_profile
     unless params[:controller] == "profiles" && params[:action] == "new"
       if current_user && current_user.profile.blank?
@@ -14,10 +17,10 @@ class EventsController < ApplicationController
   end
 
   def index
-    if is_admin
+    if is_admin?
       @events = Event.all
     else
-      @events = Event.all(:conditions => ["user_id = ?",current_user.id])
+      @events = Event.all
     end
 
     respond_to do |format|
@@ -99,4 +102,30 @@ class EventsController < ApplicationController
       format.json { head :ok }
     end
   end
+
+  def fetch_pages
+    if params[:id] == "all" || params[:id].blank?      
+      @events = Event.all
+    else      
+      @events = Event.where("LOWER(name) LIKE ?", "#{params[:id].downcase}%").order("name")
+    end
+    render :partial => "list", :layout => false
+  end
+
+  def get_ticket
+    @event = Event.find(params[:id])
+    #    @qr = RQRCode::QRCode.new( "#{@order.number}", :size => 2, :level => :h )
+    render :layout => false
+  end
+
+  def ticket
+    @event = Event.find(params[:id])
+    @qr = RQRCode::QRCode.new( "#{@event.id}", :size => 2, :level => :h )
+    render :layout => false
+  end
+
+  def search
+    @events = Event.where("LOWER(name) LIKE ?", "%#{params[:q].downcase}%").order("name")
+  end
+
 end

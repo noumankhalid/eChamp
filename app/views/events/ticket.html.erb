@@ -1,0 +1,75 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" ></meta>
+    <title>Event Champion</title>
+    <%#= stylesheet_link_tag "merchant","screen","admin"%>
+  </head>
+  <body>
+    <div class="gradientHolder">
+
+      <div class="wrapper">
+        <div class="homePageContentHolder">
+          <div class='toolbar'>
+            <div style="float:right;padding-right:75px;padding-top:10px;padding-left:35px;">
+              <a style="text-decoration: none;" href="JavaScript:window.print();">
+                <img src="/images/printer.png"  width="30px" style="float:left;"/>
+                <label style="font-weight: normal;float:left;margin-top:8px;cursor: pointer;text-decoration: none;">Print this page</label>
+              </a>
+            </div>
+            <br class='clear'/>
+          </div>
+          <div class="contentsHolder mtop20">
+            <div class="voucherHeading">
+              <%= @event.name.capitalize %>,<br/><br/>              
+            </div>
+            <table width="80%">
+              <tr valign="top">
+                <td style="padding-top: 0; margin-top: 0">                
+                <%= raw(@eventdescription) %>                
+                </td>
+                <td>
+                  <table class="qrcode">
+                    <% @qr.modules.each_index do |x| %>
+                    <tr>
+                      <% @qr.modules.each_index do |y| %>
+                      <% if @qr.dark?(x,y) %>
+                      <td class="black qrcode"/>
+                      <% else %>
+                      <td class="white qrcode"/>
+                      <% end %>
+                      <% end %>
+                    </tr>
+                    <% end %>
+                  </table>
+                </td>
+              </tr>              
+            </table>
+
+          <div class="deal_vaule_heading mtop20">If you have any questions or problems contact EventChampion at <span class="blue">support@eventchampion.com</span>. </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>
+
+<style type="text/css">
+  table.qrcode {
+    border-width: 0;
+    border-style: none;
+    border-color: #0000ff;
+    border-collapse: collapse;
+  }
+  td.qrcode {
+    border-width: 0;
+    border-style: none;
+    border-color: #0000ff;
+    border-collapse: collapse;
+    padding: 0;
+    margin: 0;
+    width: 6px;
+    height: 6px;
+  }
+  td.black { background-color: #000; }
+  td.white { background-color: #fff; }
+</style>

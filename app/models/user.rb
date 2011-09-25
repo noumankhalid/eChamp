@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
 
   has_many :services, :dependent => :destroy
+  has_many :events, :dependent => :destroy
+  has_many :tickets
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :user_name, :company_name, :receive_email, :age_limit
@@ -34,4 +36,9 @@ class User < ActiveRecord::Base
       end
     end
   end
+
+  def role?(role)
+    return !!self.roles.find_by_name(role.to_s)
+  end
+
 end

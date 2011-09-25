@@ -6,25 +6,30 @@
     <%= javascript_include_tag :defaults %>
     <%= csrf_meta_tag %>
     <%= stylesheet_link_tag    "application" %>
-    <%= javascript_include_tag "application" %>    
-    <%= javascript_include_tag "ckeditor" %>
-    <%= javascript_include_tag "ckeditor/ckeditor.js" %>
+    <%= javascript_include_tag "application" %>
+    <%= javascript_include_tag "jquery-1.6.min", "jquery/jquery.selectbox-0.1.2.min" %>
     <%= javascript_include_tag "tiny_mce/tiny_mce", "mce_init" %>
   </head>
   <body>
-    <% unless current_user.blank? %>
-      <%# p_role = Role.find(:first,:conditions => ["name = ?",'Event Promoter']) %>
-        <%# if current_user.roles.include?(p_role)  %>
-
-  <%# end %>
-    <%= link_to "Events", "/events" %>
+    <div style="float: left;width:300px;">
+    <% unless current_user.blank? %>  
+      <%= link_to "Events", "/events" %>
       <%= link_to "Profile", "/profiles/show" %>
       <%= link_to "Sign Out", "/sign_out" %>
     <% else %>
       <%= link_to "Sign In", "/sign_in" %> |
-  <%#= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
     <% end %>
-    <%= yield %>
+  </div>
+  <div style="width:150px;float: left;border-right: 1px solid white; border-color: white; margin-right: 0pt;">
+    Search
+  </div>
+  <div class="search_top">
+    <form action="/search">
+      <input class="search" name="q"/>
+    </form>
+  </div>
 
-  </body>
+  <%= yield %>
+
+</body>
 </html>
