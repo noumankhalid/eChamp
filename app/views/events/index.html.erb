@@ -1,0 +1,58 @@
+<h1>Listing events</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Number of events</th>
+    <th>Start date</th>
+    <th>End date</th>
+    <th>Restrictions</th>
+    <th>Location</th>
+    <th>Address</th>
+    <th>Web address</th>
+    <th>Number of tickets</th>
+    <th>Ticket type</th>
+    <th>Max order tickets</th>
+    <th>Keywords</th>
+    <th>Discount code</th>
+    <th>Qr code</th>
+    <th>Group event</th>
+    <th>Video link</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <% @events.each do |event| %>
+    <tr>
+      <td><%= event.name %></td>
+      <td><%= event.description %></td>
+      <td><%= event.number_of_events %></td>
+      <td><%= event.start_date %></td>
+      <td><%= event.end_date %></td>
+      <td><%= event.restrictions %></td>
+      <td><%= event.location %></td>
+      <td><%= event.address %></td>
+      <td><%= event.web_address %></td>
+      <td><%= event.number_of_tickets %></td>
+      <td><%= event.ticket_type %></td>
+      <td><%= event.max_order_tickets %></td>
+      <td><%= event.keywords %></td>
+      <td><%= event.discount_code %></td>
+      <td><%= event.qr_code %></td>
+      <td><%= event.group_event %></td>
+      <td><%= event.video_link %></td>
+      <td><%= link_to 'Show', event %></td>
+      <% if is_admin || is_promoter %>
+        <td><%= link_to 'Edit', edit_event_path(event) %></td>
+        <td><%= link_to 'Destroy', event, confirm: 'Are you sure?', method: :delete %></td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
+
+<br />
+<% if is_admin || is_promoter %>
+  <%= link_to 'New Event', new_event_path %>
+<% end %>

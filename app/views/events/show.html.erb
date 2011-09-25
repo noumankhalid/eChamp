@@ -1,0 +1,102 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @event.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= raw(@event.description) %>
+</p>
+
+<p>
+  <b>Number of events:</b>
+  <%= @event.number_of_events %>
+</p>
+
+<p>
+  <b>Start date:</b>
+  <%= @event.start_date %>
+</p>
+
+<p>
+  <b>End date:</b>
+  <%= @event.end_date %>
+</p>
+
+<p>
+  <b>Restrictions:</b>
+  <%= raw(@event.restrictions) %>
+</p>
+
+<p>
+  <b>Location:</b>
+  <%= @event.location %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%= raw(@event.address) %>
+</p>
+
+<p>
+  <b>Web address:</b>
+  <%= @event.web_address %>
+</p>
+
+<p>
+  <b>Number of tickets:</b>
+  <%= @event.number_of_tickets %>
+</p>
+
+<p>
+  <b>Ticket type:</b>
+  <%= @event.ticket_type %>
+</p>
+
+<p>
+  <b>Max order tickets:</b>
+  <%= @event.max_order_tickets %>
+</p>
+
+<p>
+  <b>Keywords:</b>
+  <%=  raw(@event.keywords) %>
+</p>
+
+<p>
+  <b>Discount code:</b>
+  <%= @event.discount_code %>
+</p>
+
+<p>
+  <b>Qr code:</b>
+<table  border="1" height ="150" width="150" style="border-width: 0;border-style: none;border-color: #0000ff;border-collapse: collapse;">
+  <% @qr.modules.each_index do |x| %>
+    <tr>
+      <% @qr.modules.each_index do |y| %>
+        <% if @qr.dark?(x,y) %>
+          <td bgcolor="black" border="0" style="border-width: 0;border-style: none;border-color: #0000ff;border-collapse: collapse;padding: 0;margin: 0;width: 10px;height: 10px;background-color: #000;"/>
+        <% else %>
+          <td bgcolor="white" border="0" style="border-width: 0;border-style: none;border-color: #0000ff;border-collapse: collapse;padding: 0;margin: 0;width: 10px;height: 10px;background-color: #fff;"/>
+        <% end %>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
+</p>
+
+<p>
+  <b>Group event:</b>
+  <%= @event.group_event %>
+</p>
+
+<p>
+  <b>Video link:</b>
+  <%= @event.video_link %>
+</p>
+
+
+<%= link_to 'Edit', edit_event_path(@event) %> |
+<%= link_to 'Back', events_path %>

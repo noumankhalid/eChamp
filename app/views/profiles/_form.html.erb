@@ -1,0 +1,43 @@
+<%= javascript_include_tag :ckeditor %>
+<%= form_for(@profile) do |f| %>
+  <% if @profile.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
+
+      <ul>
+        <% @profile.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :hometown %><br />
+    <%= f.text_field :hometown %>
+  </div>
+  <div class="field">
+    <%= f.label :interests %><br />
+    <textarea name="profile[interests]" class="mceEditor" rows="3" cols="50" >
+      <%= raw(@profile.interests) %>
+    </textarea>
+    <%#= f.text_area :interests %>
+  </div>
+  <div class="field">
+    <%= f.label :education %><br />
+    <textarea name="profile[education]" class="mceEditor" rows="3" cols="50" >
+      <%= raw(@profile.education) %>
+    </textarea>
+    <%#= f.text_area :education %>
+  </div>
+  <div class="field">
+    <%= f.label :biography %><br />
+  <%#= f.cktext_area :biography %>
+    <textarea name="profile[biography]" class="mceEditor" rows="3" cols="50" >
+      <%= raw(@profile.biography) %>
+    </textarea>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

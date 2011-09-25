@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Hometown:</b>
+  <%= @profile.hometown %>
+</p>
+
+<p>
+  <b>Interests:</b>
+  <%= raw(@profile.interests) %>
+</p>
+
+<p>
+  <b>Education:</b>
+  <%= raw(@profile.education) %>
+</p>
+
+<p>
+  <b>Biography:</b>
+  <%= raw(@profile.biography) %>
+</p>
+
+
+<%= link_to 'Edit', edit_profile_path(@profile) %> |
+<%= link_to 'Back', profiles_path %>

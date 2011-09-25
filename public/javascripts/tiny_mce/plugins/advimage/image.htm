@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>image upload</title>
+    <script type="text/javascript" src="/javascripts/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="/javascripts/jquery/jquery.form.js"></script>
+    <script type="text/javascript" src="/javascripts/jquery/jquery.validate.js"></script>
+    <script type="text/javascript" src="../../tiny_mce_popup.js"></script>
+    <script type="text/javascript" src="../../utils/mctabs.js"></script>
+    <script type="text/javascript" src="../../utils/form_utils.js"></script>
+    <script type="text/javascript" src="../../utils/editable_selects.js"></script>
+    <link href="css/advimage.css" rel="stylesheet" type="text/css"/>
+    <base target="_self"/>
+</head>
+<body id="advimage" style="display: block;">
+<div class="panel_wrapper" style="height:110px !important;">
+    <div class="panel current" id="general_panel">
+
+        <fieldset>
+            <legend>Upload Image</legend>
+            <div>
+                <form method="post" enctype="multipart/form-data" class="new_content"
+                      action="/file_uploader" accept-charset="UTF-8" onsubmit="return false;" id="image_uploader_form">
+                    <input type="file" id="uploader" name="editor_image[picture]" value=""
+                           style="font-size: 22px;margin-left: 8px;width:421px;"/>
+                    <label class="error_ext" id="invalid_extension" style="display:none;">
+                        Please select an image with gif, jpeg, jpg, png, bmp extensions.
+                    </label>
+
+                    <div class="mceActionPanel">
+                        <div style="float: left">
+                            <input type="submit" value="Insert" name="insert" id="insert" />
+                        </div>
+
+                        <div style="float: right">
+                            <input type="button" onclick="tinyMCEPopup.close();" value="Cancel" name="cancel"
+                                   id="cancel" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </fieldset>
+    </div>
+
+
+</div>
+
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#image_uploader_form").validate({
+            rules: {
+                "editor_image[picture]":
+                {
+                    required: true
+                }
+            }
+        });
+        $('#mceModalBlocker', window.parent.document).show();
+    });
+    $("#insert").click(function() {
+        if (!jQuery("#image_uploader_form").valid()) {
+            return false;
+        }
+        else {
+            if (!/[^/].(?:gif|jpeg|jpg|png|bmp|GIF|JPGE|JPG|PNG|BMP)/i.test($("#uploader").val())) {
+                $("#invalid_extension").show();
+            }
+            else {
+                $("#invalid_extension").hide();
+                $('#image_uploader_form').submit(function() {
+                    $(this).unbind('submit').ajaxSubmit({
+                        success: function(data) {
+                            var image_src = data.split("<body>");
+                            var ori_src = image_src[1].split("</body>");
+                            var image_src = ori_src[0];
+                            tinyMCE.execCommand('mceInsertContent', false, '<img src=' + ori_src[0] + '>', {skip_undo : 1});
+                            $('.clearlooks2', window.parent.document).hide();
+                            $('#mceModalBlocker', window.parent.document).hide();
+                            return false;
+                        }
+                    })
+                    return false
+                });
+            }
+        }
+    });
+</script>
+<style type="text/css">
+    #image_uploader_form label.error {
+        color: red;
+        font-size: 14px;
+        padding-left: 10px;
+    }
+
+    .error_ext {
+        color: red;
+        font-size: 12px;
+        padding-left: 10px;
+    }
+
+</style>

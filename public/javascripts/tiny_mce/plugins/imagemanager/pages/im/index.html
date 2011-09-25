@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Event Champion</title>
+    <!--[if IE]>
+    <script type="text/javascript" src="js/utils/fixpng.js"></script><![endif]-->
+    <script type="text/javascript" src="/javascripts/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="/javascripts/jquery/jquery.form.js"></script>    
+    <link rel="stylesheet" type="text/css" href="../../css/index.php?type=im&theme=im&package=core_css"/>
+</head>
+<body>
+<form method="post" enctype="multipart/form-data" class="new_content"
+      action="/file_uploader" accept-charset="UTF-8" onsubmit="return false;" id="image_uploader_form">
+    <input type="file" id="uploader" name="editor_image[picture]" value=""/>
+    <input type="submit" id="submit_image"/>
+</form>
+
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#submit_image").click(function() {
+            alert("sannankhalid");
+            alert($('#image_uploader_form').attr("id"));
+            $('#image_uploader_form').submit(function() {
+                alert("ssssssssssss");
+                $(this).unbind('submit').ajaxSubmit({
+                    success: function(data) {
+                        container.html(data);
+                    }
+                })
+                return false
+            });
+        });
+
+    });
+</script>
