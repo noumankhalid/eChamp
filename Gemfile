@@ -27,7 +27,7 @@ gem 'rqrcode-rails3'
 gem 'exception_notification'
 gem 'twitter'
 gem 'fb_graph'
-gem 'ckeditor', :git => 'git://github.com/galetahub/rails-ckeditor.git', :branch => 'rails3'
+#gem 'ckeditor', :git => 'git://github.com/galetahub/rails-ckeditor.git', :branch => 'rails3'
 gem 'texticle'
 
 # Use unicorn as the web server
