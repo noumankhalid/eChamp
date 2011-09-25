@@ -25,10 +25,10 @@ test:
   password:
   host: localhost
 production:
-  adapter: jdbcmysql
+  adapter: mysql
   encoding: utf8
   reconnect: false
-  database: app_production
+  database: e_champ
   pool: 5
   username: root
   password:
